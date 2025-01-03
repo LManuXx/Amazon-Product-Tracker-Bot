@@ -267,7 +267,7 @@ async def handle_user_input(update: Update, context: ContextTypes.DEFAULT_TYPE) 
             await update.message.reply_text(f"Producto añadido: {product_name} - {product_price}")
         else:
             await update.message.reply_text("La URL proporcionada no es válida. Inténtalo de nuevo.")
-        user_states.pop(user_id)  # Limpia el estado del usuario
+        user_states.pop(user_id) 
 
     elif state == "waiting_for_remove":
         try:
@@ -281,7 +281,7 @@ async def handle_user_input(update: Update, context: ContextTypes.DEFAULT_TYPE) 
                 await update.message.reply_text("El número proporcionado no es válido.")
         except ValueError:
             await update.message.reply_text("Por favor, proporciona un número válido.")
-        user_states.pop(user_id)  # Limpia el estado del usuario
+        user_states.pop(user_id)
 
     elif state == "waiting_for_check":
         if is_valid_amazon_url(user_input):
@@ -295,10 +295,10 @@ async def handle_user_input(update: Update, context: ContextTypes.DEFAULT_TYPE) 
         if is_valid_amazon_url(user_input):
             await update.message.reply_text("Generando el historial de precios, por favor espera...")
             context.args = [user_input]
-            await show_history(update, context)  # Reutiliza la función existente
+            await show_history(update, context)
         else:
             await update.message.reply_text("La URL proporcionada no es válida. Inténtalo de nuevo.")
-        user_states.pop(user_id)  # Limpia el estado del usuario
+        user_states.pop(user_id) 
 
     else:
         await update.message.reply_text("Acción no reconocida. Por favor, utiliza el menú para empezar.")

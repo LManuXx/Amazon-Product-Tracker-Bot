@@ -3,3 +3,9 @@
 
 # Ignorar la base de datos tracker
 tracker.db
+
+__pycache__/
+build/
+dist/
+main/
+main.spec
