@@ -6,13 +6,12 @@ from telegram.ext import ContextTypes
 from utils import is_valid_amazon_url
 from price_tracker import get_price
 from price_tracker import get_product_info
-from database import add_user, add_product, get_products, remove_product, get_price_history
+from database import add_user, add_product, get_products, remove_product, get_price_history, record_price_change, get_all_products, get_last_price
 import matplotlib.pyplot as plt
 import os
 import time
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from utils import user_states
-
 
 
 # Función para el comando /help
@@ -48,6 +47,14 @@ async def add_url(update, context):
     product_name, product_price = get_product_info(url)
     add_user(user_id)
     add_product(user_id, url, product_name, product_price)
+    products = get_all_products()
+    for product in products:
+            product_id, user_id, url, name = product
+
+            product_name, current_price = get_product_info(url)
+            last_price = get_last_price(product_id)
+
+    record_price_change(product_id, current_price)
 
     await update.message.reply_text(f"Producto añadido: {product_name} - {product_price}")
 

@@ -122,3 +122,19 @@ def get_all_products():
         FROM products
         """)
         return cursor.fetchall()
+    
+def update_product_price(product_id, new_price):
+    # Actualizar el precio del producto
+    with sqlite3.connect(DB_NAME) as conn:
+        cursor = conn.cursor()
+        
+        # Actualizamos el precio en la tabla `products`
+        cursor.execute("""
+        UPDATE products
+        SET price = ?
+        WHERE id = ?
+        """, (new_price, product_id))
+        conn.commit()
+
+
+

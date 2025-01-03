@@ -3,7 +3,7 @@ from price_tracker import get_product_info
 from telegram import Bot
 from dotenv import load_dotenv
 import os
-from database import record_price_change, get_product_id, get_last_price, get_all_products
+from database import record_price_change, get_product_id, get_last_price, get_all_products, update_product_price
 from asyncio import Semaphore
 
 # Cargar variables de entorno
@@ -31,12 +31,9 @@ async def check_prices():
             product_name, current_price = get_product_info(url)
             last_price = get_last_price(product_id)
 
-            if not last_price:
-                last_price = "999,99 €"
-                record_price_change(product_id, last_price)
-
             if current_price != last_price:
                 record_price_change(product_id, current_price)
+                update_product_price(product_id, current_price)
 
                 await bot.send_message(
                     chat_id=user_id,
