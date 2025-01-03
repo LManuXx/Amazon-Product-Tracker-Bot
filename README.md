@@ -125,5 +125,3 @@ Los precios se extraen de las páginas de Amazon utilizando la librería Beautif
 El sistema genera notificaciones locales cada vez que se detecta un cambio en el precio de un producto. Estas notificaciones son enviadas directamente a través del bot de Telegram.
 
 ---
-
-¿Hay algo más que te gustaría añadir o ajustar? 😊
